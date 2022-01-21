@@ -1,11 +1,4 @@
-import {
-  Table,
-  Column,
-  Model,
-  AutoIncrement,
-  Index,
-  PrimaryKey,
-} from "sequelize-typescript";
+import { Table, Column, Model, Index, PrimaryKey } from "sequelize-typescript";
 
 @Table
 class Test extends Model {

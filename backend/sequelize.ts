@@ -3,6 +3,7 @@ import { DataBaseCredentials } from "./config";
 
 const sequelize = new Sequelize({
   ...DataBaseCredentials,
+  //@ts-ignore
   dialect: "mysql",
   models: [__dirname + "/models"],
   define: {
