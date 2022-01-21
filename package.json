@@ -14,8 +14,10 @@
     "@emotion/styled": "^11.6.0",
     "@mui/material": "^5.2.3",
     "@mui/styles": "^5.2.3",
+    "@types/node": "^17.0.10",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
+    "@types/validator": "^13.7.1",
     "axios": "^0.24.0",
     "express": "^4.17.1",
     "html-webpack-plugin": "^5.5.0",
@@ -29,7 +31,11 @@
     "webpack-dev-server": "^4.6.0"
   },
   "dependencies": {
-    "nodemon": "^2.0.15"
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.13.0",
+    "sequelize-typescript": "^2.1.2"
   },
   "author": "",
   "license": "ISC"

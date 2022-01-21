@@ -12,7 +12,8 @@
     "allowJs": true,
     // enable strict type checking
     "strict": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false
   },
   "include": ["./**/*", "../typings/**/*"]
 }

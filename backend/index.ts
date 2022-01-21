@@ -1,6 +1,8 @@
 import express from "express";
+import sequelize from "./sequelize";
 const server = express();
 
+sequelize.sync();
 server.use((req, res) => {
   res.status(200).json({ succes: "BOOBA" });
 });
