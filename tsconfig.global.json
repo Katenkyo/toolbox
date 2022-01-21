@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "target": "es5",
+    "module": "es6",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "declaration": false,
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitReturns": true,
+    "strict": true,
+    "outDir": "build",
+    "lib": ["dom", "es2015", "es5", "es6", "es7"],
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true
+  },
+  "exclude": ["**/dist", "build", "**/node_modules", "**/.*/"],
+  "filesGlob": ["**/*.ts", "**/*.tsx", "!node_modules/**"]
+}

@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.global.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "paths": {
+      "@common/*": ["./common/*"],
+      "@pages/*": ["./pages/*"],
+      "@assets/*": ["./assets/*"]
+    }
+  },
+  "types": ["material-ui", "react"],
+  "include": ["./**/*", "../typings/**/*"]
+}

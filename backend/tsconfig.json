@@ -1,0 +1,18 @@
+{
+  "extends": "../tsconfig.global.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "lib": ["es6", "dom"],
+    "target": "es6",
+    "jsx": "react",
+    "allowJs": true,
+    // enable strict type checking
+    "strict": true,
+    "strictNullChecks": true
+  },
+  "include": ["./**/*", "../typings/**/*"]
+}
