@@ -14,7 +14,13 @@ const TokenHolder: FC = (props) => {
         return <JobToken job={key} />;
       })}
       <WaymarkToken waymark={1} />
-      <WaymarkToken waymark={"A"} />
+      <WaymarkToken waymark={2} />
+      <WaymarkToken waymark={3} />
+      <WaymarkToken waymark={4} />
+      <WaymarkToken waymark="A" />
+      <WaymarkToken waymark="B" />
+      <WaymarkToken waymark="C" />
+      <WaymarkToken waymark="D" />
     </>
   );
 };
