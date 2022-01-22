@@ -15,11 +15,6 @@ const ArenaDisplay: FC = (props) => {
       onDrop(_item, monitor);
       return undefined;
     },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-      canDrop: monitor.canDrop(),
-      draggingColor: monitor.getItemType(),
-    }),
   });
 
   const onDrop = (item: any, monitor: DropTargetMonitor) => {

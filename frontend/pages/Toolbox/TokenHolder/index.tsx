@@ -21,7 +21,7 @@ const TokenHolder: FC = (props) => {
       {listKeys()
         .filter((job) => !context.players.some((p) => p.type === job))
         .map((key) => {
-          return <JobToken job={key} />;
+          return <JobToken key={key} job={key} />;
         })}
       {waymarks.map((waymark) => (
         <WaymarkToken key={waymark} waymark={waymark} />

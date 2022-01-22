@@ -11,7 +11,7 @@ interface JobTokenProps {
 const JobToken: FC<JobTokenProps> = (props) => {
   const { job, sx = {} } = props;
 
-  const [monitor, dragRef, previewRef] = useDrag({
+  const [collected, dragRef, previewRef] = useDrag({
     type: "player",
     item: { id: job },
   });
@@ -21,6 +21,8 @@ const JobToken: FC<JobTokenProps> = (props) => {
     width: "4rem",
     height: "4rem",
   });
+
+  if (job === "BLM") console.log(collected);
 
   return <StyledToken ref={dragRef} sx={sx} />;
 };
