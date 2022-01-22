@@ -6,7 +6,14 @@ type ArenaImageProps = React.DetailedHTMLProps<
   HTMLImageElement
 >;
 
-const StyledImg = styled("img")({ maxHeight: "100%", maxWidth: "100%" });
+const StyledImg = styled("img")({
+  display: "block",
+  maxHeight: "100%",
+  maxWidth: "100%",
+  width: "auto",
+  height: "auto",
+  objectFit: "scale-down",
+});
 
 const build = (image: any) => (props: ArenaImageProps) =>
   <StyledImg src={image} {...props} />;
