@@ -20,7 +20,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(woff|woff2|eot|ttf|otf|svg)$/i,
+        test: /\.(svg|jpg)$/i,
         type: "asset/resource",
       },
       {
