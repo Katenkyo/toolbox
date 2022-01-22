@@ -1,26 +1,28 @@
 import { FC, useContext } from "react";
 import Jobs from "@assets/jobs";
 import JobToken from "./JobToken";
-import WaymarkToken from "./WaymarkToken";
+import WaymarkToken, { NumberWaymark, LetterWaymark } from "./WaymarkToken";
+import { ToolboxContext } from "@pages/Toolbox/context";
 
 const TokenHolder: FC = (props) => {
+  const context = useContext(ToolboxContext);
   const listKeys = () => {
     const keys = Object.keys(Jobs) as (keyof typeof Jobs)[];
     return keys;
   };
+
+  const waymarks = (
+    [1, 2, 3, 4, "A", "B", "C", "D"] as (NumberWaymark | LetterWaymark)[]
+  ).filter((w) => !context.usedTokens.some((t) => t.type === w));
+
   return (
     <>
       {listKeys().map((key) => {
         return <JobToken job={key} />;
       })}
-      <WaymarkToken waymark={1} />
-      <WaymarkToken waymark={2} />
-      <WaymarkToken waymark={3} />
-      <WaymarkToken waymark={4} />
-      <WaymarkToken waymark="A" />
-      <WaymarkToken waymark="B" />
-      <WaymarkToken waymark="C" />
-      <WaymarkToken waymark="D" />
+      {waymarks.map((waymark) => (
+        <WaymarkToken key={waymark} waymark={waymark} />
+      ))}
     </>
   );
 };

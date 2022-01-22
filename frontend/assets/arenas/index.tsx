@@ -1,4 +1,4 @@
-import { ImgHTMLAttributes } from "react";
+import { forwardRef, ImgHTMLAttributes } from "react";
 import { styled } from "@mui/material";
 
 type ArenaImageProps = React.DetailedHTMLProps<
@@ -15,8 +15,10 @@ const StyledImg = styled("img")({
   objectFit: "scale-down",
 });
 
-const build = (image: any) => (props: ArenaImageProps) =>
-  <StyledImg src={image} {...props} />;
+const build = (image: any) =>
+  forwardRef<HTMLImageElement>((props: ArenaImageProps, ref) => (
+    <StyledImg src={image} {...props} ref={ref} />
+  ));
 
 import p1 from "./P1.jpg";
 import p1_2 from "./P1-2.jpg";

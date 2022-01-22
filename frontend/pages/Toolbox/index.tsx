@@ -4,6 +4,8 @@ import { ToolboxContextProvider } from "./context";
 import ArenaSelector from "./ArenaSelector";
 import ArenaDisplay from "./ArenaDisplay";
 import TokenHolder from "./TokenHolder";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const Toolbox: FC = (props) => {
   return (
@@ -20,8 +22,10 @@ const Toolbox: FC = (props) => {
         }}
       >
         <Grid item sx={{ flex: "1 1 33%" }}>
-          <ArenaSelector />
-          <TokenHolder />
+          <DndProvider backend={HTML5Backend}>
+            <ArenaSelector />
+            <TokenHolder />
+          </DndProvider>
         </Grid>
         <Grid
           item
@@ -30,7 +34,9 @@ const Toolbox: FC = (props) => {
           justifyContent="center"
           sx={{ flex: "1 1 66%" }}
         >
-          <ArenaDisplay />
+          <DndProvider backend={HTML5Backend}>
+            <ArenaDisplay />
+          </DndProvider>
         </Grid>
       </Grid>
     </ToolboxContextProvider>
