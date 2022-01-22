@@ -26,11 +26,11 @@ import p2 from "./P2.jpg";
 import p3 from "./P3.jpg";
 import p4 from "./P4.jpg";
 const Arenas = {
-  P1: build(p1),
-  P1_2: build(p1_2),
-  P2: build(p2),
-  P3: build(p3),
-  P4: build(p4),
+  P1: p1,
+  P1_2: p1_2,
+  P2: p2,
+  P3: p3,
+  P4: p4,
 };
 
 export default Arenas;

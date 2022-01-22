@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { styled } from "@mui/material";
+import { styled, SxProps } from "@mui/material";
 import { useDrag } from "react-dnd";
 
 import waymark1 from "@assets/waymarks/waymark1.png";
@@ -14,11 +14,15 @@ import waymarkD from "@assets/waymarks/waymarkD.png";
 export type NumberWaymark = 1 | 2 | 3 | 4;
 export type LetterWaymark = "A" | "B" | "C" | "D";
 
-interface WaymarkNumberTokenProps {
+interface WaymarkTokenProps {
+  sx?: SxProps;
+}
+
+interface WaymarkNumberTokenProps extends WaymarkTokenProps {
   waymark: NumberWaymark;
 }
 
-interface WaymarkLetterTokenProps {
+interface WaymarkLetterTokenProps extends WaymarkTokenProps {
   waymark: LetterWaymark;
 }
 
@@ -69,7 +73,7 @@ const getColor = (p: WaymarkNumberTokenProps | WaymarkLetterTokenProps) => {
 const WaymarkToken: FC<WaymarkNumberTokenProps | WaymarkLetterTokenProps> = (
   props
 ) => {
-  const { waymark } = props;
+  const { waymark, sx = {} } = props;
 
   const [monitor, dragRef, previewRef] = useDrag({
     type: "*",
@@ -86,7 +90,7 @@ const WaymarkToken: FC<WaymarkNumberTokenProps | WaymarkLetterTokenProps> = (
     backgroundSize: "contain",
   });
 
-  return <StyledToken ref={dragRef}></StyledToken>;
+  return <StyledToken ref={dragRef} sx={sx} />;
 };
 
 export default WaymarkToken;

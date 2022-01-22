@@ -3,6 +3,10 @@ import Arenas from "@assets/arenas";
 
 interface TokenPosition {
   type: any;
+  position: {
+    x: number;
+    y: number;
+  };
 }
 
 export interface ToolboxContextEntity {
