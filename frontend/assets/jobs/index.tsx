@@ -1,5 +1,5 @@
 import { styled } from "@mui/material";
-import { ImgHTMLAttributes } from "react";
+import { forwardRef, ImgHTMLAttributes } from "react";
 
 type ArenaImageProps = React.DetailedHTMLProps<
   ImgHTMLAttributes<HTMLImageElement>,
@@ -12,8 +12,10 @@ const StyledImg = styled("img")({
   borderRadius: "100%",
 });
 
-const build = (image: any) => (props: ArenaImageProps) =>
-  <StyledImg src={image} {...props} />;
+const build = (image: any) =>
+  forwardRef<HTMLImageElement>((props: ArenaImageProps, ref) => (
+    <StyledImg src={image} {...props} ref={ref} />
+  ));
 
 import ast from "./AST.png";
 import blm from "./BLM.png";

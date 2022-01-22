@@ -1,14 +1,20 @@
 import { FC } from "react";
 import Jobs from "@assets/jobs";
-import { styled } from "@mui/material";
+import { styled, SxProps } from "@mui/material";
+import { useDrag } from "react-dnd";
 
 interface JobTokenProps {
   job: keyof typeof Jobs;
+  sx?: SxProps;
 }
 
 const JobToken: FC<JobTokenProps> = (props) => {
-  const { job } = props;
+  const { job, sx = {} } = props;
 
+  const [monitor, dragRef, previewRef] = useDrag({
+    type: "player",
+    item: { id: job },
+  });
   const Selected = Jobs[job];
 
   const StyledToken = styled(Selected)({
@@ -16,7 +22,7 @@ const JobToken: FC<JobTokenProps> = (props) => {
     height: "4rem",
   });
 
-  return <StyledToken />;
+  return <StyledToken ref={dragRef} sx={sx} />;
 };
 
 export default JobToken;

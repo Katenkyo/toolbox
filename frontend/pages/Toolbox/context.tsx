@@ -1,23 +1,36 @@
 import { createContext, FC, useEffect, useState } from "react";
 import Arenas from "@assets/arenas";
+import Jobs from "@assets/jobs";
 
-interface TokenPosition {
-  type: any;
-  position: {
-    x: number;
-    y: number;
-  };
+export type NumberWaymark = 1 | 2 | 3 | 4;
+export type LetterWaymark = "A" | "B" | "C" | "D";
+
+interface Offset {
+  x: number;
+  y: number;
+}
+
+interface WaymarkPosition {
+  type: NumberWaymark | LetterWaymark;
+  offset: Offset;
+}
+
+interface PlayerPosition {
+  type: keyof typeof Jobs;
+  offset: Offset;
 }
 
 export interface ToolboxContextEntity {
   arena: keyof typeof Arenas;
-  usedTokens: TokenPosition[];
+  waymarks: WaymarkPosition[];
+  players: PlayerPosition[];
   update: (changes: Partial<ToolboxContextEntity>) => void;
 }
 
 export const toolboxContextDefaults: ToolboxContextEntity = {
   arena: "P1",
-  usedTokens: [],
+  waymarks: [],
+  players: [],
   update: (changes) => {},
 };
 
@@ -31,18 +44,17 @@ export const ToolboxContextProvider: FC<ToolboxContextProviderProps> = (
 ) => {
   const { children } = props;
   const [arena, setArena] = useState(toolboxContextDefaults.arena);
-  const [usedTokens, setUsedTokens] = useState(
-    toolboxContextDefaults.usedTokens
-  );
+  const [waymarks, setWaymarks] = useState(toolboxContextDefaults.waymarks);
+  const [players, setPlayers] = useState(toolboxContextDefaults.players);
 
   const update = (changes: Partial<ToolboxContextEntity>) => {
     if (typeof changes.arena !== "undefined") setArena(changes.arena);
-    if (typeof changes.usedTokens !== "undefined")
-      setUsedTokens(changes.usedTokens);
+    if (typeof changes.waymarks !== "undefined") setWaymarks(changes.waymarks);
+    if (typeof changes.players !== "undefined") setPlayers(changes.players);
   };
 
   return (
-    <ToolboxContext.Provider value={{ arena, usedTokens, update }}>
+    <ToolboxContext.Provider value={{ arena, waymarks, players, update }}>
       {children}
     </ToolboxContext.Provider>
   );

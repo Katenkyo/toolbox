@@ -2,17 +2,15 @@ import { FC, useContext, useRef } from "react";
 import { ToolboxContext } from "@pages/Toolbox/context";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 import Arenas from "@assets/arenas";
-import WaymarkToken, {
-  LetterWaymark,
-  NumberWaymark,
-} from "@pages/Toolbox/TokenHolder/WaymarkToken";
+import WaymarkToken from "@pages/Toolbox/TokenHolder/WaymarkToken";
 import { styled } from "@mui/material";
+import JobToken from "../TokenHolder/JobToken";
 
 const ArenaDisplay: FC = (props) => {
   const context = useContext(ToolboxContext);
   const containerRef = useRef<HTMLDivElement>(null);
   const [monitor, dropRef] = useDrop({
-    accept: ["*"],
+    accept: ["player", "waymark"],
     drop(_item, monitor) {
       onDrop(_item, monitor);
       return undefined;
@@ -35,14 +33,20 @@ const ArenaDisplay: FC = (props) => {
       y: (dropOriginalOffset.y - hostBounds.y) / hostBounds.height,
     };
 
-    console.log(hostBounds);
-
-    context.update({
-      usedTokens: [
-        ...context.usedTokens.filter((x) => x.type !== item.id),
-        { type: item.id, position: { ...relativeOffset } },
-      ],
-    });
+    if (monitor.getItemType() === "waymark")
+      context.update({
+        waymarks: [
+          ...context.waymarks.filter((x) => x.type !== item.id),
+          { type: item.id, offset: { ...relativeOffset } },
+        ],
+      });
+    else
+      context.update({
+        players: [
+          ...context.players.filter((x) => x.type !== item.id),
+          { type: item.id, offset: { ...relativeOffset } },
+        ],
+      });
   };
 
   const Arena = styled("div")({
@@ -66,13 +70,24 @@ const ArenaDisplay: FC = (props) => {
       }}
     >
       <Arena ref={containerRef}>
-        {context.usedTokens.map((waymark) => (
+        {context.waymarks.map((waymark) => (
           <WaymarkToken
             waymark={waymark.type}
             sx={{
               position: "absolute",
-              top: `${waymark.position.y * 100}%`,
-              left: `${waymark.position.x * 100}%`,
+              top: `${waymark.offset.y * 100}%`,
+              left: `${waymark.offset.x * 100}%`,
+              transform: "translateX(-50%) translateY(-50%)",
+            }}
+          />
+        ))}
+        {context.players.map((player) => (
+          <JobToken
+            job={player.type}
+            sx={{
+              position: "absolute",
+              top: `${player.offset.y * 100}%`,
+              left: `${player.offset.x * 100}%`,
               transform: "translateX(-50%) translateY(-50%)",
             }}
           />

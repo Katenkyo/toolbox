@@ -76,7 +76,7 @@ const WaymarkToken: FC<WaymarkNumberTokenProps | WaymarkLetterTokenProps> = (
   const { waymark, sx = {} } = props;
 
   const [monitor, dragRef, previewRef] = useDrag({
-    type: "*",
+    type: "waymark",
     item: { id: waymark },
   });
 

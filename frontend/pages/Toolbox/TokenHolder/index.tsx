@@ -6,6 +6,7 @@ import { ToolboxContext } from "@pages/Toolbox/context";
 
 const TokenHolder: FC = (props) => {
   const context = useContext(ToolboxContext);
+
   const listKeys = () => {
     const keys = Object.keys(Jobs) as (keyof typeof Jobs)[];
     return keys;
@@ -13,13 +14,15 @@ const TokenHolder: FC = (props) => {
 
   const waymarks = (
     [1, 2, 3, 4, "A", "B", "C", "D"] as (NumberWaymark | LetterWaymark)[]
-  ).filter((w) => !context.usedTokens.some((t) => t.type === w));
+  ).filter((w) => !context.waymarks.some((t) => t.type === w));
 
   return (
     <>
-      {listKeys().map((key) => {
-        return <JobToken job={key} />;
-      })}
+      {listKeys()
+        .filter((job) => !context.players.some((p) => p.type === job))
+        .map((key) => {
+          return <JobToken job={key} />;
+        })}
       {waymarks.map((waymark) => (
         <WaymarkToken key={waymark} waymark={waymark} />
       ))}
