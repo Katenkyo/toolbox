@@ -1,11 +1,12 @@
 import { FC } from "react";
-import { Grid } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import { ToolboxContextProvider } from "./context";
 import ArenaSelector from "./ArenaSelector";
 import ArenaDisplay from "./ArenaDisplay";
 import TokenHolder from "./TokenHolder";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import DangerBuilder from "./DangerBuilder";
 
 const Toolbox: FC = (props) => {
   return (
@@ -23,8 +24,11 @@ const Toolbox: FC = (props) => {
           }}
         >
           <Grid item sx={{ flex: "1 1 33%" }}>
-            <ArenaSelector />
-            <TokenHolder />
+            <Paper>
+              <ArenaSelector />
+              <TokenHolder />
+              <DangerBuilder />
+            </Paper>
           </Grid>
           <Grid
             item
