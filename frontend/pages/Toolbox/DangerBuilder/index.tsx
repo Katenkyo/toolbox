@@ -19,10 +19,12 @@ const DangerBuilder: FC = (props) => {
       size: { width: 0.1, height: 0.1 },
     };
 
-    context.update({
-      dangers: [...context.dangers, danger],
-      selectedDanger: danger.id,
+    context.dispatch({
+      type: "danger",
+      data: [...context.dangers, danger],
     });
+
+    context.dispatch({ type: "selectedDanger", data: danger.id });
   };
 
   const selectedDanger = context.dangers.find(

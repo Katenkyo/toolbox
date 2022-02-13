@@ -7,7 +7,7 @@ const ArenaSelector: FC = (props) => {
   const context = useContext(ToolboxContext);
 
   const handleChange = (value: typeof context.arena) => {
-    context.update({ arena: value });
+    context.dispatch({ type: "arena", data: value });
   };
 
   return (

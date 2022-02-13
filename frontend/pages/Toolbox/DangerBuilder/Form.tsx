@@ -9,13 +9,14 @@ interface DangerBuilderProps {
 }
 
 const DangerBuilder: FC<DangerBuilderProps> = (props) => {
-  const { update, dangers } = useContext(ToolboxContext);
+  const { dispatch, dangers } = useContext(ToolboxContext);
   const [selectedDanger, setSelectedDanger] = useState(props.selectedDanger);
 
   const handleChange = (key: keyof DangerZone, val: any) => {
     setSelectedDanger({ ...selectedDanger, [key]: val });
-    update({
-      dangers: dangers.map((danger) => {
+    dispatch({
+      type: "danger",
+      data: dangers.map((danger) => {
         if (danger.id !== selectedDanger.id) return danger;
         return { ...danger, [key]: val };
       }),

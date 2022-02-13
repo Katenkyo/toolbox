@@ -29,15 +29,17 @@ const ArenaDisplay: FC = (props) => {
     };
 
     if (monitor.getItemType() === "waymark")
-      context.update({
-        waymarks: [
+      context.dispatch({
+        type: "waymarks",
+        data: [
           ...context.waymarks.filter((x) => x.type !== item.id),
           { type: item.id, offset: { ...relativeOffset } },
         ],
       });
     else
-      context.update({
-        players: [
+      context.dispatch({
+        type: "players",
+        data: [
           ...context.players.filter((x) => x.type !== item.id),
           { type: item.id, offset: { ...relativeOffset } },
         ],

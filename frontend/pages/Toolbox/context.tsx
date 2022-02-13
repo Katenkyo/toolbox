@@ -1,4 +1,11 @@
-import { createContext, FC, useEffect, useState } from "react";
+import {
+  createContext,
+  FC,
+  Reducer,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import Arenas from "@assets/arenas";
 import Jobs from "@assets/jobs";
 
@@ -40,7 +47,7 @@ export interface ToolboxContextEntity {
   players: PlayerPosition[];
   dangers: DangerZone[];
   selectedDanger: string | null;
-  update: (changes: Partial<ToolboxContextEntity>) => void;
+  dispatch: React.Dispatch<Actions>;
 }
 
 export const toolboxContextDefaults: ToolboxContextEntity = {
@@ -49,7 +56,7 @@ export const toolboxContextDefaults: ToolboxContextEntity = {
   players: [],
   dangers: [],
   selectedDanger: null,
-  update: (changes) => {},
+  dispatch: (action) => {},
 };
 
 export const ToolboxContext = createContext(toolboxContextDefaults);
@@ -57,30 +64,28 @@ export const ToolboxContext = createContext(toolboxContextDefaults);
 interface ToolboxContextProviderProps {
   children?: JSX.Element;
 }
+
+type Actions =
+  | { type: "arena"; data: keyof typeof Arenas }
+  | { type: "waymarks"; data: WaymarkPosition[] }
+  | { type: "players"; data: PlayerPosition[] }
+  | { type: "danger"; data: DangerZone[] }
+  | { type: "selectedDanger"; data: string | null };
+
 export const ToolboxContextProvider: FC<ToolboxContextProviderProps> = (
   props
 ) => {
   const { children } = props;
-  const [arena, setArena] = useState(toolboxContextDefaults.arena);
-  const [waymarks, setWaymarks] = useState(toolboxContextDefaults.waymarks);
-  const [players, setPlayers] = useState(toolboxContextDefaults.players);
-  const [dangers, setDangers] = useState(toolboxContextDefaults.dangers);
-  const [selectedDanger, setSelectedDanger] = useState(
-    toolboxContextDefaults.selectedDanger
-  );
 
-  const update = (changes: Partial<ToolboxContextEntity>) => {
-    if (typeof changes.arena !== "undefined") setArena(changes.arena);
-    if (typeof changes.waymarks !== "undefined") setWaymarks(changes.waymarks);
-    if (typeof changes.players !== "undefined") setPlayers(changes.players);
-    if (typeof changes.dangers !== "undefined") setDangers(changes.dangers);
-    if (typeof changes.selectedDanger !== "undefined")
-      setSelectedDanger(changes.selectedDanger);
+  const reducer: Reducer<ToolboxContextEntity, Actions> = (state, action) => {
+    return { ...state, [action.type]: action.data };
   };
+  const [{ arena, waymarks, players, dangers, selectedDanger }, dispatch] =
+    useReducer(reducer, toolboxContextDefaults);
 
   return (
     <ToolboxContext.Provider
-      value={{ arena, waymarks, players, dangers, selectedDanger, update }}
+      value={{ arena, waymarks, players, dangers, selectedDanger, dispatch }}
     >
       {children}
     </ToolboxContext.Provider>
