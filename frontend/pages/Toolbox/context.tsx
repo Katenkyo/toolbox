@@ -37,8 +37,9 @@ export interface DangerZone {
   offset: Offset;
   color: string;
   opacity: number;
-  shape: "circle" | "rectangle";
+  shape: "circular" | "rectangle";
   size: BoxSize;
+  anchorMode: "origin" | "center";
 }
 
 export interface ToolboxContextEntity {
@@ -69,7 +70,7 @@ type Actions =
   | { type: "arena"; data: keyof typeof Arenas }
   | { type: "waymarks"; data: WaymarkPosition[] }
   | { type: "players"; data: PlayerPosition[] }
-  | { type: "danger"; data: DangerZone[] }
+  | { type: "dangers"; data: DangerZone[] }
   | { type: "selectedDanger"; data: string | null };
 
 export const ToolboxContextProvider: FC<ToolboxContextProviderProps> = (

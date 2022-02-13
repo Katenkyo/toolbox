@@ -8,7 +8,7 @@ import Form from "./Form";
 const DangerBuilder: FC = (props) => {
   const context = useContext(ToolboxContext);
 
-  const handleAdd = (shape: "rectangle" | "circle") => {
+  const handleAdd = (shape: "rectangle" | "circular") => {
     const danger: DangerZone = {
       id: uuid(),
       offset: { x: 0, y: 0 },
@@ -17,10 +17,11 @@ const DangerBuilder: FC = (props) => {
       color: "#FF0000",
       opacity: 0.5,
       size: { width: 0.1, height: 0.1 },
+      anchorMode: shape === "rectangle" ? "origin" : "center",
     };
 
     context.dispatch({
-      type: "danger",
+      type: "dangers",
       data: [...context.dangers, danger],
     });
 
@@ -36,7 +37,7 @@ const DangerBuilder: FC = (props) => {
   return (
     <Paper elevation={2} sx={{ minHeight: "15rem" }}>
       <Grid container direction="row">
-        <IconButton onClick={() => handleAdd("circle")}>
+        <IconButton onClick={() => handleAdd("circular")}>
           <AddCircle />
         </IconButton>
         <IconButton onClick={() => handleAdd("rectangle")}>

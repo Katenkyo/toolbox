@@ -3,8 +3,9 @@ import { ToolboxContext } from "@pages/Toolbox/context";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 import Arenas from "@assets/arenas";
 import WaymarkToken from "@pages/Toolbox/TokenHolder/WaymarkToken";
-import { styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import JobToken from "../TokenHolder/JobToken";
+import DangerBox from "./DangerBox";
 
 const ArenaDisplay: FC = (props) => {
   const context = useContext(ToolboxContext);
@@ -56,6 +57,48 @@ const ArenaDisplay: FC = (props) => {
     transform: "translate(0)",
   });
 
+  const displayWaymarks = () => (
+    <>
+      {context.waymarks.map((waymark) => (
+        <WaymarkToken
+          waymark={waymark.type}
+          sx={{
+            position: "absolute",
+            top: `${waymark.offset.y * 100}%`,
+            left: `${waymark.offset.x * 100}%`,
+            transform: "translateX(-50%) translateY(-50%)",
+          }}
+        />
+      ))}
+    </>
+  );
+
+  const displayPlayers = () => (
+    <>
+      {context.players.map((player) => (
+        <JobToken
+          job={player.type}
+          sx={{
+            position: "absolute",
+            top: `${player.offset.y * 100}%`,
+            left: `${player.offset.x * 100}%`,
+            transform: "translateX(-50%) translateY(-50%)",
+          }}
+        />
+      ))}
+    </>
+  );
+
+  const displayDangers = () => (
+    <>
+      {context.dangers.map((danger) => (
+        <DangerBox key={danger.id} danger={danger} />
+      ))}
+    </>
+  );
+
+  console.log(context.dangers);
+
   return (
     <div
       ref={dropRef}
@@ -67,28 +110,9 @@ const ArenaDisplay: FC = (props) => {
       }}
     >
       <Arena ref={containerRef}>
-        {context.waymarks.map((waymark) => (
-          <WaymarkToken
-            waymark={waymark.type}
-            sx={{
-              position: "absolute",
-              top: `${waymark.offset.y * 100}%`,
-              left: `${waymark.offset.x * 100}%`,
-              transform: "translateX(-50%) translateY(-50%)",
-            }}
-          />
-        ))}
-        {context.players.map((player) => (
-          <JobToken
-            job={player.type}
-            sx={{
-              position: "absolute",
-              top: `${player.offset.y * 100}%`,
-              left: `${player.offset.x * 100}%`,
-              transform: "translateX(-50%) translateY(-50%)",
-            }}
-          />
-        ))}
+        {displayWaymarks()}
+        {displayPlayers()}
+        {displayDangers()}
       </Arena>
     </div>
   );
